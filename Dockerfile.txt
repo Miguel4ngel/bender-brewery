@@ -1,0 +1,14 @@
+# For Java 8, try this
+FROM openjdk:8-jdk-alpine
+
+# Refer to Maven build -> finalName
+ARG JAR_FILE=target/price-point-api-1.0.0-SNAPSHOT.jar
+
+# cd /opt/app
+WORKDIR c://Dockers
+
+# cp target/spring-boot-web.jar c:\\Dockers\price-point-api-1.0.0-SNAPSHOT.jar
+COPY ${JAR_FILE} price-point-api-1.0.0-SNAPSHOT.jar
+
+# java -jar /opt/app/price-point-ap.jar
+ENTRYPOINT ["java","-jar","price-point-api-1.0.0-SNAPSHOT.jar"]

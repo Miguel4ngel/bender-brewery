@@ -1,0 +1,31 @@
+version: '3.1'
+networks:
+  bender-brewery-network:
+    external: true
+services:
+  dbpostgresql:
+    container_name: bender-brewery-db
+    image: postgres
+    ports: 
+      - "5432:5432"
+    environment: 
+      - POSTGRES_DB=bender-brewery-schema
+      - POSTGRES_PASSWORD=admin12345
+      - POSTGRES_USER=atqdba
+    networks: 
+      - bender-brewery-network
+  
+  app:
+    container_name: price-point-api
+    image:  price-point-api
+    build:
+      context: .
+      dockerfile: Dockerfile.txt
+    ports: 
+      - "8080:8080"
+    depends_on: 
+      - dbpostgresql
+    networks: 
+      - bender-brewery-network
+
+  
